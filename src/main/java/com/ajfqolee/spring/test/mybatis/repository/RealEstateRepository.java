@@ -1,5 +1,7 @@
 package com.ajfqolee.spring.test.mybatis.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,6 +12,8 @@ public interface RealEstateRepository {
 	
 	public RealEstate selectRealEstate(@Param("id") int id);
 	
-	public RealEstate selectRealEstateRant(@Param("rent") int rent);
+	public List<RealEstate> selectRealEstateRent(@Param("rent") int rent);
+	
+	public List<RealEstate> selectRealEstateAreaPrice(@Param("area") int area, @Param("price") int price);
 	
 }

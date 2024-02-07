@@ -23,7 +23,7 @@
 		WHERE `id` = #{id}
 	</select>
 	
-	<select id = "selectRealEstateRant"
+	<select id = "selectRealEstateRent"
 	resultType="com.ajfqolee.spring.test.mybatis.domain.RealEstate"
 	parameterType="int">
 		SELECT
@@ -37,9 +37,33 @@
 			,`createdAt`
 			,`updatedAt`
 		FROM `real_estate`
-		WHERE `rentPrice`<=#{rent}
+		<!-- xml은 마크업 랭귀지이기 때문에 부등호를 태그를 여는 시작점|닫는지점으로 인식 (다른방법으로 표현 필요) -->
+		WHERE <![CDATA[`rentPrice` < #{rent}]]>	
 	</select>
 
+
+	<select id = "selectRealEstateAreaPrice"
+	resultType="com.ajfqolee.spring.test.mybatis.domain.RealEstate"
+	parameterType="int">
+		SELECT
+			 `id`
+			,`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+		FROM `real_estate`
+		WHERE 
+		<![CDATA[
+		`type` = '매매'
+		  AND `area` >= #{area}
+		  AND `price` <= #{area}
+		  ]]>
+		ORDER BY `createdAt` DESC
+	</select>
 </mapper>
 
 
