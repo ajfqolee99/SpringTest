@@ -34,4 +34,36 @@ public class RealEstateService {
 		
 	}
 	
+	// 객체 형태로 한 행을 insert하기 위한 기능이 필요
+	public int addRealEstateByObject(RealEstate realEstate) {
+		
+		int count = realEstateRepository.insertRealEstateByObject(realEstate);
+		return count;
+		
+	}
+	
+	public int addRealEstate(
+			int realtorId
+			, String address
+			, int area
+			, String type
+			, int price
+			, int rentPrice
+			) 
+	{
+		int count = realEstateRepository.insertRealEstate(realtorId, address, area, type, price, rentPrice);
+		return count;
+	}
+	
+	// 특정 id의 매물 정보에 전달받은 type과 price값으로 수정하는 기능
+	public int updateRealEstate(int id, String tpye, int price) {
+		int count = realEstateRepository.updateRealEstate(id, tpye, price);
+		return count;
+	}
+	
+	public int deleteRealEstate(int id) {
+		int count = realEstateRepository.deleteRealEstate(id);
+		return count;
+	}
+	
 }

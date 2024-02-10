@@ -41,7 +41,6 @@
 		WHERE <![CDATA[`rentPrice` < #{rent}]]>	
 	</select>
 
-
 	<select id = "selectRealEstateAreaPrice"
 	resultType="com.ajfqolee.spring.test.mybatis.domain.RealEstate"
 	parameterType="int">
@@ -60,10 +59,78 @@
 		<![CDATA[
 		`type` = '매매'
 		  AND `area` >= #{area}
-		  AND `price` <= #{area}
+		  AND `price` <= #{price}
 		  ]]>
 		ORDER BY `createdAt` DESC
 	</select>
+	
+	<insert id="insertRealEstateByObject" 
+	parameterType="com.ajfqolee.spring.test.mybatis.domain.RealEstate">
+		
+		INSERT INTO 
+			 `real_estate`
+			(
+				`realtorId`
+				,`address`
+				,`area`
+				,`type`
+				,`price`
+				,`rentPrice`
+			)
+			VALUE
+			(
+				#{realtorId}
+				,#{address}
+				,#{area}
+				,#{type}
+				,#{price}
+				,#{rentPrice}
+			)
+			
+	</insert>
+	
+	<!-- 메소드의 타입이 여러개일때는 parameterType을 map으로 구성 -->
+	<insert id="insertRealEstate" parameterType="map">
+	
+		INSERT INTO 
+			 `real_estate`
+			(
+				`realtorId`
+				,`address`
+				,`area`
+				,`type`
+				,`price`
+				,`rentPrice`
+			)
+			VALUE
+			(
+			<!-- 위 insertRealEstateByObject에 있는 변수들과는 완전히 다른 변수 -->
+			<!-- insertRealEstate메소드에서 전달된 파라미터와 매칭되는 변수들 -->
+				#{realtorId}
+				,#{address}
+				,#{area}
+				,#{type}
+				,#{price}
+				,#{rentPrice}
+			)
+	
+	</insert>
+	
+	<update id="updateRealEstate" parameterType="map">
+	
+		UPDATE `real_estate`
+		SET `type` = #{type}
+			,`price` = #{price}
+		    ,`updatedAt` = now()
+		WHERE `id` = #{id};
+	
+	</update>
+	
+	<delete id="deleteRealEstate" parameterType="int">
+		DELETE FROM  `real_estate`
+		WHERE `id` = #{id};
+	</delete>
+	
 </mapper>
 
 
