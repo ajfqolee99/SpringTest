@@ -19,16 +19,24 @@ public class RealtorController {
 	private RealtorService realtorService;
 	
 	@GetMapping("/create")
-	@ResponseBody
 	public String createRealtor(
 			@RequestParam("office") String office
 			,@RequestParam("phoneNumber") String phoneNumber
 			,@RequestParam("address") String address
 			,@RequestParam("grade") String grade
+			, Model model
 			) 
 	{
-		int count = realtorService.addRealtor(office, phoneNumber, address, grade);
-		return "입력성공 : " + count;
+//		int count = realtorService.addRealtor(office, phoneNumber, address, grade);
+		Realtor realtor = new Realtor();
+		realtor.setOffice(office);
+		realtor.setPhoneNumber(phoneNumber);
+		realtor.setAddress(address);
+		realtor.setGrade(grade);
+		model.addAttribute("realtor", realtor);
+		
+		int count = realtorService.addRealtorByObject(realtor);
+		return "jsp/realtorInfo";
 	}
 	
 	@GetMapping("/input")

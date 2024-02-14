@@ -25,6 +25,27 @@
 	
 	</insert>
 	
+	<insert id="insertRealtorByObject" 
+	parameterType="com.ajfqolee.spring.test.jsp.domain.Realtor"
+	useGeneratedKeys = "true" keyProperty="id">
+		INSERT INTO
+			`realtor`
+		(
+			`office`
+			,`phoneNumber`
+			,`address`
+			,`grade`
+		)
+		VALUE
+		(
+			#{office}
+			,#{phoneNumber}
+			,#{address}
+			,#{grade}
+		)
+	
+	</insert>
+	
 	<select id="selectLastRealtor"
 	resultType="com.ajfqolee.spring.test.jsp.domain.Realtor">
 	

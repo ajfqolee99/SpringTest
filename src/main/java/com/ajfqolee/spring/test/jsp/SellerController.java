@@ -31,20 +31,41 @@ public class SellerController {
 		return "입력성공 : " + count;
 	}
 	
+	@PostMapping("/create/seller")
+	public String createSellerByObject(
+			@RequestParam("nickname") String nickname
+			,@RequestParam("profileImage") String profileImage
+			,@RequestParam("temperature") double temperature
+			) 
+	{
+//		int count = sellerService.addSeller(nickname, profileImage, temperature);
+		Seller seller = new Seller();
+		seller.setNickname(nickname);
+		seller.setProfileImage(profileImage);
+		seller.setTemperature(temperature);
+		
+		int count = sellerService.addSellerByObject(seller);
+		return "jsp/sellerInfo";
+	}
+	
 	@GetMapping("/input")
 	public String inputSeller() {
 		return "jsp/seller-input";
 	}
 	
 	@GetMapping("/info")
-	public String sellerInfo(Model model, @RequestParam("id") int id) {
-		
-		Seller seller = sellerService.getLastSeller();
-		model.addAttribute("title", "판매자 정보");
+	// primitive type이면 null값을 받았을때 에러가 난다. 래퍼클래스로 변환 int -> Integer
+	public String sellerInfo(Model model, @RequestParam(value = "id", required = false) Integer id) {
+		Seller seller = null;
+		// id가 전달되면 일치하는 판매자 정보
+		if(id != null) {
+			seller = sellerService.getSeller(id);
+		} else {	// id가 전달되지 않으면 가장 최근 등록된 판매자 정보
+			seller = sellerService.getLastSeller();
+			
+		}
 		model.addAttribute("result", seller);
-		
 		return "jsp/sellerInfo";
-	}
-	
+	}	
 	
 }

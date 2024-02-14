@@ -17,6 +17,11 @@ public class RealtorService {
 		return count;
 	}
 	
+	public int addRealtorByObject(Realtor realtor) {
+		int count = realtorRepository.insertRealtorByObject(realtor);
+		return count;
+	}
+	
 	public Realtor getLastRealtor() {
 		Realtor realtor = realtorRepository.selectLastRealtor();
 		return realtor;

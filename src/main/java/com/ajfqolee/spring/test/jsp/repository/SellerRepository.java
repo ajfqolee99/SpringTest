@@ -14,6 +14,10 @@ public interface SellerRepository {
 			,@Param("temperature") double temperature
 			);
 	
+	public int insertSellerByObject(Seller seller);
+	
 	public Seller selectLastSeller();
+	
+	public Seller selectSeller(@Param("id") int id);
 	
 }

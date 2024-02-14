@@ -15,6 +15,8 @@ public interface RealtorRepository {
 			,@Param("grade") String grade
 			);
 	
+	public int insertRealtorByObject(Realtor realtor);
+	
 	public Realtor selectLastRealtor();
 	
 	

@@ -24,6 +24,26 @@
 	
 	</insert>
 	
+	<insert id="insertSellerByObject" 
+	parameterType="com.ajfqolee.spring.test.jsp.domain.Seller"
+	useGeneratedKeys="true" keyProperty="id">
+	
+		INSERT INTO 
+			`seller`
+		(
+			`nickname`
+			,`profileImage`
+			,`temperature`
+		)
+		VALUE
+		(
+			#{nickname}
+			,#{profileImage}
+			,#{temperature}
+		)
+	
+	</insert>
+	
 	<select id="selectLastSeller" 
 	resultType="com.ajfqolee.spring.test.jsp.domain.Seller">
 	
@@ -40,6 +60,21 @@
 			`id` DESC
 		LIMIT
 			1
+	</select>
+	
+	<select id="selectSeller" parameterType="int"
+	resultType="com.ajfqolee.spring.test.jsp.domain.Seller">
+		SELECT
+			 `id`
+			,`nickname`
+			,`profileImage`
+			,`temperature`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`seller`
+		WHERE 
+			`id` = #{id}
 	</select>
 
 </mapper>

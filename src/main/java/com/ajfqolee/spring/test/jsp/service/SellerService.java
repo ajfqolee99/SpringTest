@@ -17,8 +17,18 @@ public class SellerService {
 		return count;
 	}
 	
+	public int addSellerByObject(Seller seller) {
+		int count = sellerRepository.insertSellerByObject(seller);
+		return count;
+	}
+	
 	public Seller getLastSeller() {
 		Seller seller = sellerRepository.selectLastSeller();
+		return seller;
+	}
+	
+	public Seller getSeller(int id) {
+		Seller seller = sellerRepository.selectSeller(id);
 		return seller;
 	}
 	

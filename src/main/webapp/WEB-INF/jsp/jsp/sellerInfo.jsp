@@ -12,7 +12,7 @@
 	
 	<div class="container">
 	
-		<h3>${title }</h3>
+		<h3>판매자 정보</h3>
 		<img src="${result.profileImage }" width="100">
 		<div>${result.nickname }</div>
 		<div class="text-warning">${result.temperature }</div>
