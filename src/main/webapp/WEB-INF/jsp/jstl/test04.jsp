@@ -2,18 +2,19 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 정보 리스트</title>
+<title>JSTL function library</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
 </head>
 <body>
 
 	<div class="container">
-		<h3>1. 후보자 득표율</h3>
+		<h3>회원 정보 리스트</h3>
 		<table class="table text-center">
 			<tr>
 				<th>NO</th>
@@ -27,10 +28,24 @@
 				<tr>
 					<td>${status.count }</td>
 					<td>${member.name }</td>
-					<td>${member.phoneNumber }</td>
-					<td>${member.email }</td>
-					<td>${member.nationality }</td>
-					<td>${member.introduce }</td>
+					<c:choose>
+						<c:when test="${fn:startsWith(member.phoneNumber, '010') }">
+							<td>${member.phoneNumber }</td>
+						</c:when>
+						<c:otherwise>
+							<td>유효하지 않은 전화번호</td>
+						</c:otherwise>
+					</c:choose>
+					<td>${fn:replace(member.nationality, "삼국시대", "삼국 - ") }</td>
+					<td><b>${fn:split(member.email, "@")[0] }</b>@${fn:split(member.email, "@")[1] }</td>
+					<c:choose>
+						<c:when test="${fn:length(member.introduce) > 15 }">
+							<td class="text-left">${fn:substring(member.introduce, 0, 15) } ...</td>
+						</c:when>
+						<c:otherwise>
+							<td class="text-left">${fn:substring(member.introduce, 0, 15) } </td>
+						</c:otherwise>
+					</c:choose>
 				</tr>
 			</c:forEach>
 		</table>

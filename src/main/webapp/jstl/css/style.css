@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+#wrap{
+	width:1200px;
+	margin: 0 auto;
+}
+
+.contents > .main-menu {
+	width: 200px;
+	background-color:#6595EC;
+}
+
+.contents > .main-contents {
+	width: 1000px;
+}
+
+footer > .logo {
+	width:200px;
+	height:100px;
+}
+
+footer > .copyright {
+	width:1000px;
+	height:100px;
+}

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ajfqolee.spring.test.jstl.repository.WeatherRepository">
+	
+	<select id="selectWeatherHistory"
+	resultType="com.ajfqolee.spring.test.jstl.domain.WeatherHistory">
+		SELECT
+			 `id`
+			,`date`
+			,`weather`
+			,`temperatures`
+			,`precipitation`
+			,`microDust`
+			,`windSpeed`
+			,`createdAt`
+			,`updatedAt`
+		FROM `weatherhistory`
+			
+	</select>
+	
+	<insert  id="insertWeather" parameterType="map">
+		INSERT INTO
+			`weatherhistory`
+		(
+			 `date`
+			,`weather`
+			,`microDust`
+			,`temperatures`
+			,`precipitation`
+			,`windSpeed`
+		)
+		VALUE
+		(
+			 #{date}
+			,#{weather}
+			,#{microDust}
+			,#{temperatures}
+			,#{precipitation}
+			,#{windSpeed}
+		)
+	</insert>
+	
+	<insert  id="insertWeatherByObject" 
+	parameterType="com.ajfqolee.spring.test.jstl.domain.WeatherHistory">
+		INSERT INTO
+			`weatherhistory`
+		(
+			 `date`
+			,`weather`
+			,`microDust`
+			,`temperatures`
+			,`precipitation`
+			,`windSpeed`
+		)
+		VALUE
+		(
+			 #{date}
+			,#{weather}
+			,#{microDust}
+			,#{temperatures}
+			,#{precipitation}
+			,#{windSpeed}
+		)
+	</insert>
+	
+</mapper>

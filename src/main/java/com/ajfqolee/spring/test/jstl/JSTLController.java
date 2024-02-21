@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ajfqolee.spring.test.jstl.domain.Member;
+
 @Controller
 @RequestMapping("/jstl")
 public class JSTLController {
@@ -164,7 +166,7 @@ public class JSTLController {
 		member.setIntroduce("내 수염 좀 멋있는 듯");
 		members.add(member);
 		
-		model.addAttribute("members", members)
+		model.addAttribute("members", members);
 		
 		return "jstl/test04";
 	}
