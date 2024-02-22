@@ -15,10 +15,29 @@ public class SiteService {
 	private SiteRepository siteRepository;
 	
 	public List<Site> getSiteList() {
-		List<Site> site = siteRepository.selectSiteList();
-		return site;
+		List<Site> siteList = siteRepository.selectSiteList();
+		return siteList;
 	}
 	
+	public int addSite(String name, String url) {
+		int count = siteRepository.insertSite(name, url);
+		return count;
+	}
+	
+	public boolean isDupUrl(String url) {
+		int count = siteRepository.selectCountUrl(url);
+		
+		if(count > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public int deleteSite(int id) {
+		int count = siteRepository.deleteUrl(id);
+		return count;
+	}
 	
 	
 }

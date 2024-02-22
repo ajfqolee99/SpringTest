@@ -5,6 +5,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.ajfqolee.spring.test.ajax.repository.SiteRepository">
+
 	<select id="selectSiteList"
 	resultType="com.ajfqolee.spring.test.ajax.domain.Site">
 		SELECT 
@@ -15,6 +16,31 @@
 			, `updatedAt`
 		FROM `site`
 	</select>
+	
+	<insert id="insertSite" parameterType="map">
+		INSERT INTO
+			`site`
+		(
+			`name`
+			,`url`
+		)
+		VALUE
+		(
+			#{name}
+			,#{url}
+		)
+	</insert>
+	
+	<select id = "selectCountUrl" parameterType="string" resultType="int">
+		SELECT COUNT(*)
+		FROM `site`
+		WHERE `url` = #{url}
+	</select>
+	
+	<update id="deleteUrl">
+		DELETE FROM  `site`
+		WHERE `id` = #{id} 
+	</update>
 
 </mapper>
 
