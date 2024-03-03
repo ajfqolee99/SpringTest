@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="/ajax/css/style.css" type="text/css">
 </head>
 <body>
-	<div id="wrap" >
+	<div id="wrap" class="container">
 	    <header class="mt-4">
 	        <div class="text-center display-4">통나무 팬션</div>
 	        <nav class="mt-4">
@@ -69,8 +69,7 @@
 		       	
 		       		</tr>
 		       		</c:forEach>
-		       			
-	       		
+		       			    		
 	       		</tbody>
 	       
 	       </table>
@@ -86,9 +85,7 @@
 	
 	    </footer>
 	
-	
 	</div>
-
 
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
@@ -99,11 +96,12 @@
 			
 			$(".delete-btn").on("click", function() {
 				
+				// 이벤트가 발생한 버튼의 data-booking-id 값을 얻어온다.
 				let id = $(this).data("booking-id");
 				
 				$.ajax({
 					type:"get"
-					, url:"/ajax/booking/delete"
+					, url:"/ajax/tree/delete"
 					, data:{"id":id}
 					, success:function(data) {
 						

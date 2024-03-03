@@ -7,7 +7,7 @@
 <title>Insert title here</title>
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
- <link rel="stylesheet" href="style.css">
+ <link rel="stylesheet" href="/ajax/css/style.css">
  <style>
    .hide {
      display: none;
@@ -16,21 +16,21 @@
 </head>
 <body>
 
-	<div id="wrap" >
+	<div id="wrap" class="container">
 	    <header class="mt-4">
 	        <div class="text-center display-4">통나무 팬션</div>
 	        <nav class="mt-4">
 	            <ul class="nav nav-fill">
 	                <li class="nav-item"><a class="nav-link" href="#">팬션소개</a></li>
 	                <li class="nav-item"><a class="nav-link" href="#">객실보기</a></li>
-	                <li class="nav-item"><a class="nav-link" href="#">예약하기</a></li>
-	                <li class="nav-item"><a class="nav-link" href="#">예약목록</a></li>
+	                <li class="nav-item"><a class="nav-link" href="/ajax/tree/input">예약하기</a></li>
+	                <li class="nav-item"><a class="nav-link" href="/ajax/tree/list">예약목록</a></li>
 	            </ul>
 	        </nav>
 	    </header>
 	
 	    <section class="banner">
-	        <img src="http://marondal.com/material/images/dulumary/web/front/jquery/test06_banner1.jpg" id="bannerImage">
+	        <img src="http://marondal.com/material/images/dulumary/web/front/jquery/test06_banner1.jpg" style="width:100%" id="bannerImage">
 	    </section>
 	    <section class="d-flex">
 	        <article class="reservation d-flex justify-content-center align-items-center">
@@ -59,7 +59,7 @@
 	               
 	                </div>
 	                <div class="d-flex justify-content-end">
-	                    <button class="btn btn-success mt-3 mr-5" id="findBtn">조회 하기</button>
+	                    <button class="btn btn-success mt-3 mr-5" id="lookupBtn">조회 하기</button>
 	                </div>
 	            </div>
 	        </article>
@@ -88,63 +88,50 @@
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
-   
-	<script>
-   		$(document).ready(function() {
-   			$("#findBtn").on("click", function() {
-   				let name = $("#nameInput").val();
-   				let phoneNumber = $("#phoneNumberInput").val();
-   				
-   				if(name == "") {
-   					alert("이름을 입력하세요");
-   					return ;
-   				}
-   				if(phoneNumber == "") {
-   					alert("전화번호를 입력하세요");
-   					return ;
-   				}
-   				
-   				$.ajax({
-   					type:"get"
-   					, url:"/ajax/booking/search"
-   					, data:{"name":name, "phoneNumber":phoneNumber}
-   					, success:function(data) {
-   					/*{
-   						  "id": 9,
-   						  "name": "장나라",
-   						  "headcount": 2,
-   						  "day": 1,
-   						  "date": "2025-09-11T15:00:00.000+00:00",
-   						  "phoneNumber": "010-2222-0000",
-   						  "state": "확정",
-   						  "createdAt": "2023-07-25T07:14:34.000+00:00",
-   						  "updatedAt": "2023-07-25T07:14:34.000+00:00"
-   						}  */
-   						
-   						if(data.result == "fail") {
-   							alert("조회 결과가 없습니다.");
-   						} else {
-   							alert("이름 : " + data.booking.name + "\n"
-   	   								+ "날짜 : " + data.booking.date.substring(0, 10) + "\n"
-   	   								+ "일수 : " + data.booking.day + "\n"
-   	   								+ "인원 : " + data.booking.headcount + "\n"
-   	   								+ "상태 : " + data.booking.state);	
-   						}
-   						
-   						
-   						
-   					}
-   					, error:function() {
-   						
-   						alert("조회 에러");
-   					}
-   					
-   				});
-   				
-   			});
-   		});
-   
-   	</script>
+    <script>
+    	$(document).ready(function() {
+    		$("#lookupBtn").on("click", function() {
+    			let name = $("#nameInput").val();
+    			let phoneNumber = $("#phoneNumberInput").val();
+    			
+    			if(name == "") {
+    				alert("이름을 입력하세요");
+    				return ;
+    			}
+    			
+    			if(phoneNumber == "") {
+    				alert("전화번호를 입력하세요");
+    				return ;
+    			}
+    			
+    			$.ajax({
+    				type:"get"
+    				,url:"/ajax/tree/search"
+    				,data:{"name":name, "phoneNumber":phoneNumber}
+    				,success:function(data) {
+    					if(data.result == "fail") {
+    						alert("예약정보가 없습니다.");
+    					} else {
+    						alert("이름 : " + data.booking.name 
+        							+ "\n날짜 : " + data.booking.date
+        							+ "\n일수 : " + data.booking.day
+        							+ "\n인원 : " + data.booking.headcount
+        							+ "\n상태 : " + data.booking.state);
+    					}
+    					
+    				} 
+    				,error:function() {
+    					alert("조회 에러");
+    				}
+    			});
+    			
+    		});
+    		
+    		
+    	});
+    
+    </script>
+	
    
 </body>
 </html>

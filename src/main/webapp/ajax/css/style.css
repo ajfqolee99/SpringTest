@@ -6,7 +6,7 @@
 }
 
 .nav > .nav-item > .nav-link {
-    background-color:peru; 
+    background-color:#cc853f; 
     color:white; 
     font-size:17px;
     font-weight: bold;
@@ -18,20 +18,20 @@
 .reservation {
     height:300px; 
     width:400px; 
-    background-color:sienna;
+    background-color:#9e512d;
      color:white;
 }
 
 .reservation-confirm {
     height:300px;  
     width:500px; 
-    background-color:chocolate; 
+    background-color:#d2691d; 
     color:white;
 }
 .reservation-call {
     height:300px;  
     width:300px; 
-    background-color:sienna; 
+    background-color: #9e512d; 
     color:white;
 }
 

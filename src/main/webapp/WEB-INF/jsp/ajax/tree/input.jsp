@@ -7,7 +7,13 @@
 <title>통나무 펜션</title>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <link rel="stylesheet" href="/ajax/css/style.css" type="text/css">
 </head>
 <body>
@@ -18,13 +24,11 @@
 	            <ul class="nav nav-fill">
 	                <li class="nav-item"><a class="nav-link" href="#">팬션소개</a></li>
 	                <li class="nav-item"><a class="nav-link" href="#">객실보기</a></li>
-	                <li class="nav-item"><a class="nav-link" href="/ajax/booking/input">예약하기</a></li>
-	                <li class="nav-item"><a class="nav-link" href="/ajax/booking/list">예약목록</a></li>
+	                <li class="nav-item"><a class="nav-link" href="/ajax/tree/input">예약하기</a></li>
+	                <li class="nav-item"><a class="nav-link" href="/ajax/tree/list">예약목록</a></li>
 	            </ul>
 	        </nav>
 	    </header>
-	
-	    
 	    <section>
 	         <h2 class="my-4 text-center">예약 하기</h2>
 	        
@@ -56,21 +60,84 @@
 	            사업자등록번호: 111-22-255222 / 농어촌민박사업자지정 / 대표:김통목 <br>
 	            Copyright 2025 tongnamu All right reserved
 	        </address>
-	
 	    </footer>
-	
-	
 	</div>
-
-
 
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 
-
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script>
+		$(document).ready(function() {
+			$("#bookingBtn").on("click", function() {
+				let name = $("#nameInput").val();
+				let date = $("#dateInput").val();
+				let day = $("#dayInput").val();
+				let headcount = $("#headcountInput").val();
+				let phoneNumber = $("#phoneNumberInput").val();
+				if(name == "") {
+					alert("이름을 입력해주세요");
+					return false;
+				}
+				if(date == "") {
+					alert("예약날짜를 입력해주세요");
+					return false;
+				}
+				if(day == "") {
+					alert("숙박일수를 입력해주세요");
+					return false;
+				}
+				
+				// day가 숫자가 아닌경우
+				// Not a Number
+				if(isNaN(day)) {
+					alert("숙박일수는 숫자만 입력 가능합니다");
+					return ;
+				}
+				
+				if(headcount == "") {
+					alert("숙박인원을 입력해주세요");
+					return false;
+				}
+				
+				if(isNaN(headcount)) {
+					alert("숙박인원은 숫자만 입력 가능합니다");
+					return ;
+				}
+				
+				if(phoneNumber == "") {
+					alert("전화번호를 입력해주세요");
+					return false;
+				}
+				$.ajax({
+					type:"get"
+					,url:"/ajax/tree/booking"
+					,data:{"name":name, "date":date, "day":day, "headcount":headcount, "phoneNumber":phoneNumber}
+					,success:function(data) {
+						if(data.result == "success") {
+							location.href("/ajax/tree/list");
+						} else {
+							alert("예약 실패");
+						}
+					}
+					,error:function() {
+						alert("ajax 에러");
+					}
+				});
+				
+				
+			});
+			
+			$("#dateInput").datepicker({
+				minDate:0
+				,dateFormat:"yy년 mm월 dd일"
+			});
+		});
 	
+		
+
+	</script>
 	
 	
 </body>

@@ -29,7 +29,8 @@
 					<td>${status.count }</td>
 					<td>${site.name }</td>
 					<td>${site.url }</td>
-					<td class="btn btn-danger p-1 mt-1 delBtn">삭제</td>
+					<%--<td><button type="button" value="${site.id }" class="btn btn-danger delBtn"></button>삭제</td> --%>
+					<td><button type="button" data-site-id="${site.id }" class="btn btn-danger btn-sm delBtn">삭제</button></td>
 				</tr>
 				</c:forEach>
 				
@@ -44,15 +45,19 @@
 		$(document).ready(function(){
 			$(".delBtn").on("click", function() {
 				// 삭제 대상 id 얻어오기
-				// $(this)
-				let id = ;
+				// 버튼태그에 삭제 대상 id 속성이 부여된 상태 data-site-id
+				// 이벤트가 발생한 그 버튼 태그의 data-site-id 속성값을 가져온다.
+				// 삭제 대상의 id를 얻어올 수 있다.
+				let siteId = $(this).data("site-id");
+				
 				$.ajax({
 					type:"get"
 					,url:"/ajax/site/delete"
-					,data:{"id":id}
+					,data:{"id":siteId}
 					,success:function(data) {
 						if(data.result == "success") {
-							alert("삭제되었습니다.");
+							// 새로고침
+							location.reload();
 						} else {
 							alert("삭제 실패");
 						}
